@@ -31,7 +31,7 @@ mock.onPost("/file/upload/enpoint").reply(200);
 let d = addYears(new Date("2015-01-01T00:00"), 1);
 let f = format(d, "YYYY-MM-DD");
 
-var products = [];
+var receivedCategories = [];
 
 export default class SemanticFileUpload extends Component {
     constructor(props) {
@@ -62,7 +62,8 @@ export default class SemanticFileUpload extends Component {
             this.state.fileThumbnail,
             this.state.isPremium,
             this.state.password,
-            this.state.source);
+            this.state.source,
+            this.state.categories);
     };
 
     fileChange4K = e => {
@@ -115,7 +116,7 @@ export default class SemanticFileUpload extends Component {
             .then(result => {
                 console.log(result)
                 this.setState({ category: result, categoryDownloaded: true })
-                products = JSON.parse(result) 
+                receivedCategories = JSON.parse(result) 
                 this.setState(this.state)
             })
             .catch(error => console.log('error', error));
@@ -126,7 +127,8 @@ export default class SemanticFileUpload extends Component {
         fileThumbnail,
         isPremium,
         password,
-        source) => {
+        source,
+        categories) => {
         const formData = new FormData();
         formData.append('Image4k', file4k);
         formData.append('ImageHD', fileHD);
@@ -135,9 +137,10 @@ export default class SemanticFileUpload extends Component {
         formData.append('Password', password);
         formData.append('IsPremium', isPremium);
         formData.append('Source', source);
-        formData.append('Categories', 1);
 
+        categories.map(cat => formData.append('Categories', cat))
 
+        //formData.append('Categories', categories);
 
         try {
             var myHeaders = new Headers();
@@ -188,7 +191,6 @@ export default class SemanticFileUpload extends Component {
             password: e.target.value
         })
         console.log(this.state.password)
-        console.log(this.state.category)
     }
 
     onSourceChange = e => {
@@ -201,13 +203,22 @@ export default class SemanticFileUpload extends Component {
     }
 
     onPremiumChange = e => {
-        console.log('onSourceChange' + e.target.value)
+        console.log('onPremiumChange : ' + !this.state.isPremium)
         this.setState({
             isPremium: !this.state.isPremium
         })
     }
 
-    
+    onCategoryChange = e => {
+        console.log('onCategoryChange' + ' ' + e.target.textContent)
+        var categoryId = e.target.textContent.split("-");
+        let a = this.state.categories.slice(); 
+        this.setState({ 
+            categories: [...a, categoryId[0]]
+        })
+
+        console.log('selected categories except last one: ' + this.state.categories);
+    }
 
     render() {
         const { statusCode } = this.state;
@@ -216,26 +227,17 @@ export default class SemanticFileUpload extends Component {
                 menuItem: "Import ",
                 render: () => (
                     <Tab.Pane attached={false} className="Testo">
-                        <Message>Provide all information below</Message>
+                        <Message>Provide all the information below</Message>
                         <Form onSubmit={this.onFormSubmit}>
                             <Form.Field>
 
                                 <Form.Checkbox
-                                    label='Premium'
+                                    label='Premium wallpaper'
                                     checked={this.state.isPremium}
                                     fluid
-                                    placeholder="Premium"
                                     value={this.state.isPremium}
                                     onChange={this.onPremiumChange}
                                 />
-
-                                {products.map(cat => {
-                                    return (
-                                        <Form.Checkbox
-                                            label={cat.categoryName}
-                                        />
-                                    );
-                                })}
 
                                 <Form.Input
                                     fluid
@@ -303,6 +305,19 @@ export default class SemanticFileUpload extends Component {
                                     readOnly
                                     value={this.state.fileNameThumbnail}
                                 />
+
+
+                                <Message>Select Image categories</Message>
+                                {this.state.categoryDownloaded && receivedCategories.map(cat => {
+                                    return (
+                                        <Form.Checkbox
+                                            label={cat.id + '-' + cat.categoryName}
+                                            title={cat.id}
+                                            onChange={this.onCategoryChange}
+                                        />
+                                    );
+                                })}
+
 
 
 
