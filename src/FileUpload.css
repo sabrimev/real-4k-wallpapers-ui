@@ -1,0 +1,8 @@
+#outer {
+    display:inline-block;
+    vertical-align:middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
