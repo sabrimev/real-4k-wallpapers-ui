@@ -31,10 +31,14 @@ mock.onPost("/file/upload/enpoint").reply(200);
 let d = addYears(new Date("2015-01-01T00:00"), 1);
 let f = format(d, "YYYY-MM-DD");
 
+var products = [];
+
 export default class SemanticFileUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            categories: [],
+            categoryDownloaded: false,
             file4K: null,
             fileHD: null,
             fileThumbnail: null,
@@ -47,6 +51,7 @@ export default class SemanticFileUpload extends Component {
             isUploading: false,
             statusCode: ""
         };
+        this.getCategoryFetch();// get categories
     }
 
     onFormSubmit = e => {
@@ -99,43 +104,22 @@ export default class SemanticFileUpload extends Component {
         );
     };
 
-    fileUpload = async (file4k,
-        fileHD,
-        fileThumbnail,
-        isPremium,
-        password,
-        source) => {
-        const formData = new FormData();
-        formData.append('Image4k', file4k);
-        formData.append('ImageHD', fileHD);
-        formData.append('ImageThumbnail', fileThumbnail);
+    getCategoryFetch = async () => {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-        formData.append('Password', password);
-        formData.append('IsPremium', isPremium);
-        formData.append('Source', source);
-        formData.append('Categories', 1);
-
-        try {
-            axios.post({
-                method: 'post',
-                url: 'https://localhost:5001/wallpaper/UploadImage',
-                data: formData,
-                headers: { 'Content-Type': 'application/json' }
-            }).then(response => {
-                console.log(response);
-                console.log(response.status);
-                this.setState({ statusCode: response.status }, () => {
-                    console.log(
-                        "This is the response status code --->",
-                        this.state.statusCode
-                    );
-                });
-            });
-        } catch (error) {
-            console.error(Error(`Error uploading file ${error.message}`));
-        }
-    };
-
+        fetch("https://wallpaper.westeurope.cloudapp.azure.com/wallpaper/getCategory", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result)
+                this.setState({ category: result, categoryDownloaded: true })
+                products = JSON.parse(result) 
+                this.setState(this.state)
+            })
+            .catch(error => console.log('error', error));
+    }
 
     fileUploadFetch = async (file4k,
         fileHD,
@@ -185,7 +169,7 @@ export default class SemanticFileUpload extends Component {
                             this.state.statusCode
                         );
                     });
-                } );
+                });
 
         } catch (error) {
             console.error(Error(`Error uploading file ${error.message}`));
@@ -204,6 +188,7 @@ export default class SemanticFileUpload extends Component {
             password: e.target.value
         })
         console.log(this.state.password)
+        console.log(this.state.category)
     }
 
     onSourceChange = e => {
@@ -221,6 +206,8 @@ export default class SemanticFileUpload extends Component {
             isPremium: !this.state.isPremium
         })
     }
+
+    
 
     render() {
         const { statusCode } = this.state;
@@ -242,12 +229,22 @@ export default class SemanticFileUpload extends Component {
                                     onChange={this.onPremiumChange}
                                 />
 
+                                {products.map(cat => {
+                                    return (
+                                        <Form.Checkbox
+                                            label={cat.categoryName}
+                                        />
+                                    );
+                                })}
+
                                 <Form.Input
                                     fluid
                                     placeholder="Password"
                                     value={this.state.password}
                                     onChange={this.onPasswordChange}
                                 />
+
+
 
                                 <Form.Input
                                     fluid
@@ -342,7 +339,7 @@ export default class SemanticFileUpload extends Component {
                                     >
                                         Wrong password
                                     </Progress>
-                                ): null}
+                                ) : null}
                             </Form.Field>
                         </Form>
                     </Tab.Pane>
