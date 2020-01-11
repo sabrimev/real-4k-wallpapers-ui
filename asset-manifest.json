@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/real-4k-wallpapers-ui/static/css/main.d3eb5f57.chunk.css",
-    "main.js": "/real-4k-wallpapers-ui/static/js/main.d47d31a6.chunk.js",
-    "main.js.map": "/real-4k-wallpapers-ui/static/js/main.d47d31a6.chunk.js.map",
+    "main.js": "/real-4k-wallpapers-ui/static/js/main.2c7bc701.chunk.js",
+    "main.js.map": "/real-4k-wallpapers-ui/static/js/main.2c7bc701.chunk.js.map",
     "runtime-main.js": "/real-4k-wallpapers-ui/static/js/runtime-main.e5e142b4.js",
     "runtime-main.js.map": "/real-4k-wallpapers-ui/static/js/runtime-main.e5e142b4.js.map",
-    "static/js/2.f06bc63b.chunk.js": "/real-4k-wallpapers-ui/static/js/2.f06bc63b.chunk.js",
-    "static/js/2.f06bc63b.chunk.js.map": "/real-4k-wallpapers-ui/static/js/2.f06bc63b.chunk.js.map",
+    "static/js/2.29a9f113.chunk.js": "/real-4k-wallpapers-ui/static/js/2.29a9f113.chunk.js",
+    "static/js/2.29a9f113.chunk.js.map": "/real-4k-wallpapers-ui/static/js/2.29a9f113.chunk.js.map",
     "index.html": "/real-4k-wallpapers-ui/index.html",
-    "precache-manifest.04f02d88aec573c3786703b13209f9e2.js": "/real-4k-wallpapers-ui/precache-manifest.04f02d88aec573c3786703b13209f9e2.js",
+    "precache-manifest.6ea244849a2c8d2783e726ce400d8eab.js": "/real-4k-wallpapers-ui/precache-manifest.6ea244849a2c8d2783e726ce400d8eab.js",
     "service-worker.js": "/real-4k-wallpapers-ui/service-worker.js",
     "static/css/main.d3eb5f57.chunk.css.map": "/real-4k-wallpapers-ui/static/css/main.d3eb5f57.chunk.css.map",
-    "static/js/2.f06bc63b.chunk.js.LICENSE": "/real-4k-wallpapers-ui/static/js/2.f06bc63b.chunk.js.LICENSE"
+    "static/js/2.29a9f113.chunk.js.LICENSE": "/real-4k-wallpapers-ui/static/js/2.29a9f113.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.e5e142b4.js",
-    "static/js/2.f06bc63b.chunk.js",
+    "static/js/2.29a9f113.chunk.js",
     "static/css/main.d3eb5f57.chunk.css",
-    "static/js/main.d47d31a6.chunk.js"
+    "static/js/main.2c7bc701.chunk.js"
   ]
 }
