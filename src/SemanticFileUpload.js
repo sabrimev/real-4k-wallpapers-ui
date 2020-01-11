@@ -111,7 +111,7 @@ export default class SemanticFileUpload extends Component {
             redirect: 'follow'
         };
 
-        fetch("https://wallpaper.westeurope.cloudapp.azure.com/wallpaper/getCategory", requestOptions)
+        fetch("https://wallpaper.westeurope.cloudapp.azure.com/wallpaper/getAllCategory", requestOptions)
             .then(response => response.text())
             .then(result => {
                 console.log(result)
@@ -151,7 +151,7 @@ export default class SemanticFileUpload extends Component {
                 body: formData
             };
 
-            fetch("https://localhost:5001/wallpaper/UploadImage", requestOptions)
+            fetch("https://wallpaper.westeurope.cloudapp.azure.com/wallpaper/UploadImage", requestOptions)
                 .then(response => {
                     console.log(response);
                     console.log(response.status);
