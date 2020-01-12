@@ -15,7 +15,8 @@ import {
     Dimmer,
     Loader,
     Label,
-    Progress
+    Progress,
+    Image
 } from "semantic-ui-react";
 
 import addYears from "date-fns/add_years";
@@ -37,6 +38,7 @@ export default class SemanticFileUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            imagePreview: null,
             categories: [],
             categoryDownloaded: false,
             file4K: null,
@@ -117,7 +119,7 @@ export default class SemanticFileUpload extends Component {
 
     fileChangeThumbnail = e => {
         this.setState(
-            { fileThumbnail: e.target.files[0], fileNameThumbnail: e.target.files[0].name },
+            { imagePreview: URL.createObjectURL(e.target.files[0]),  fileThumbnail: e.target.files[0], fileNameThumbnail: e.target.files[0].name },
             () => {
                 console.log(
                     "File chosen --->",
@@ -390,6 +392,7 @@ export default class SemanticFileUpload extends Component {
                                         hidden
                                         onChange={this.fileChangeThumbnail}
                                     />
+                                    
                                     <Form.Input
                                         fluid
                                         placeholder="fileThumbnail"
@@ -397,7 +400,7 @@ export default class SemanticFileUpload extends Component {
                                         value={this.state.fileNameThumbnail}
                                     />
 
-
+                                    <Image src={this.state.imagePreview} size='small' />
 
 
                                     <Button style={{ marginTop: "20px" }} type="submit">
