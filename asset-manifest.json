@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/real-4k-wallpapers-ui/static/css/main.d3eb5f57.chunk.css",
-    "main.js": "/real-4k-wallpapers-ui/static/js/main.48e0d697.chunk.js",
-    "main.js.map": "/real-4k-wallpapers-ui/static/js/main.48e0d697.chunk.js.map",
+    "main.js": "/real-4k-wallpapers-ui/static/js/main.a8a3bb79.chunk.js",
+    "main.js.map": "/real-4k-wallpapers-ui/static/js/main.a8a3bb79.chunk.js.map",
     "runtime-main.js": "/real-4k-wallpapers-ui/static/js/runtime-main.e5e142b4.js",
     "runtime-main.js.map": "/real-4k-wallpapers-ui/static/js/runtime-main.e5e142b4.js.map",
     "static/js/2.56542bb7.chunk.js": "/real-4k-wallpapers-ui/static/js/2.56542bb7.chunk.js",
     "static/js/2.56542bb7.chunk.js.map": "/real-4k-wallpapers-ui/static/js/2.56542bb7.chunk.js.map",
     "index.html": "/real-4k-wallpapers-ui/index.html",
-    "precache-manifest.8580a7a7799cc3550b5d3815e58b22d7.js": "/real-4k-wallpapers-ui/precache-manifest.8580a7a7799cc3550b5d3815e58b22d7.js",
+    "precache-manifest.bc6f3a5320260c9e54ed66d48bc825c7.js": "/real-4k-wallpapers-ui/precache-manifest.bc6f3a5320260c9e54ed66d48bc825c7.js",
     "service-worker.js": "/real-4k-wallpapers-ui/service-worker.js",
     "static/css/main.d3eb5f57.chunk.css.map": "/real-4k-wallpapers-ui/static/css/main.d3eb5f57.chunk.css.map",
     "static/js/2.56542bb7.chunk.js.LICENSE": "/real-4k-wallpapers-ui/static/js/2.56542bb7.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.e5e142b4.js",
     "static/js/2.56542bb7.chunk.js",
     "static/css/main.d3eb5f57.chunk.css",
-    "static/js/main.48e0d697.chunk.js"
+    "static/js/main.a8a3bb79.chunk.js"
   ]
 }
