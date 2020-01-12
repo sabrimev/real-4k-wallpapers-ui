@@ -49,7 +49,8 @@ export default class SemanticFileUpload extends Component {
             password: '',
             source: '',
             isUploading: false,
-            statusCode: ""
+            statusCode: "",
+            submitting: false
         };
         this.getCategoryFetch();// get categories
     }
@@ -64,6 +65,9 @@ export default class SemanticFileUpload extends Component {
             this.state.password,
             this.state.source,
             this.state.categories);
+
+        this.setState({submitting: true})
+        window.scrollTo(0,0);
     };
 
     fileChange4K = e => {
@@ -116,7 +120,7 @@ export default class SemanticFileUpload extends Component {
             .then(result => {
                 console.log(result)
                 this.setState({ category: result, categoryDownloaded: true })
-                receivedCategories = JSON.parse(result) 
+                receivedCategories = JSON.parse(result)
                 this.setState(this.state)
             })
             .catch(error => console.log('error', error));
@@ -140,7 +144,7 @@ export default class SemanticFileUpload extends Component {
 
         categories.map(cat => formData.append('Categories', cat))
 
-        //formData.append('Categories', categories);
+        console.log('Sending data..')
 
         try {
             var myHeaders = new Headers();
@@ -155,20 +159,22 @@ export default class SemanticFileUpload extends Component {
                 .then(response => {
                     console.log(response);
                     console.log(response.status);
+                    //this.setState({ categories: []});//Clear state
                     this.setState({ statusCode: response.status }, () => {
                         console.log(
                             "This is the response status code --->",
                             this.state.statusCode
                         );
                     });
+                    this.setState({submitting: false})
                     return response.text()
                 })
                 .then(result => console.log(result))
                 .catch(error => {
                     console.log('error', error)
-                    this.setState({ statusCode: 500 }, () => {
+                    this.setState({ statusCode: 500, submitting: false }, () => {
                         console.log(
-                            "This is the response status code --->",
+                            "This is the response status code-err --->",
                             this.state.statusCode
                         );
                     });
@@ -176,9 +182,9 @@ export default class SemanticFileUpload extends Component {
 
         } catch (error) {
             console.error(Error(`Error uploading file ${error.message}`));
-            this.setState({ statusCode: 500 }, () => {
+            this.setState({ statusCode: 500, submitting: false }, () => {
                 console.log(
-                    "This is the response status code --->",
+                    "This is the response status code-err2 --->",
                     this.state.statusCode
                 );
             });
@@ -209,16 +215,25 @@ export default class SemanticFileUpload extends Component {
         })
     }
 
-    onCategoryChange = e => {
-        console.log('onCategoryChange' + ' ' + e.target.textContent)
-        var categoryId = e.target.textContent.split("-");
-        let a = this.state.categories.slice(); 
-        this.setState({ 
-            categories: [...a, categoryId[0]]
-        })
+    handleCategoryClick = (event, data, i) => {
+        console.log(data)
+        if (data.checked && !this.state.categories.includes(data.id)) {
+            this.setState({
+                categories: [...this.state.categories, data.id]
+            })
+        } else {
+            if (this.state.categories.includes(data.id)) {
 
+                var array = [...this.state.categories]; // make a separate copy of the array
+                var index = array.indexOf(data.id)
+                if (index !== -1) {
+                    array.splice(index, 1);
+                    this.setState({ categories: array });
+                }
+            }
+        }
         console.log('selected categories except last one: ' + this.state.categories);
-    }
+    };
 
     render() {
         const { statusCode } = this.state;
@@ -226,7 +241,7 @@ export default class SemanticFileUpload extends Component {
             {
                 menuItem: "Import ",
                 render: () => (
-                    <Tab.Pane attached={false} className="Testo">
+                    <Tab.Pane attached={false} className="Testo" loading={this.state.submitting}>
                         <Message>Provide all the information below</Message>
                         <Form onSubmit={this.onFormSubmit}>
                             <Form.Field>
@@ -308,12 +323,14 @@ export default class SemanticFileUpload extends Component {
 
 
                                 <Message>Select Image categories</Message>
-                                {this.state.categoryDownloaded && receivedCategories.map(cat => {
+                                {this.state.categoryDownloaded && receivedCategories.map((cat, i) => {
                                     return (
                                         <Form.Checkbox
+                                            id={cat.id + ''}
                                             label={cat.id + '-' + cat.categoryName}
-                                            title={cat.id}
-                                            onChange={this.onCategoryChange}
+                                            onChange={(e, v) => this.handleCategoryClick(e, v, i)}
+                                            name={cat.categoryName}
+                                            defaultChecked={false}
                                         />
                                     );
                                 })}
@@ -337,7 +354,7 @@ export default class SemanticFileUpload extends Component {
                                 ) : statusCode && statusCode === 500 ? (
                                     <Progress
                                         style={{ marginTop: "20px" }}
-                                        percent={100}
+                                        percent={0}
                                         error
                                         active
                                         progress
