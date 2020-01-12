@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/real-4k-wallpapers-ui/precache-manifest.b5fedcbea2b82b58af46d7b3121989cd.js"
+  "/real-4k-wallpapers-ui/precache-manifest.42d38490d4720e5c05b73b24bbd35515.js"
 );
 
 self.addEventListener('message', (event) => {
