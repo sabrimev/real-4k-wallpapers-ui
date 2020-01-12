@@ -58,6 +58,24 @@ export default class SemanticFileUpload extends Component {
     onFormSubmit = e => {
         e.preventDefault(); // Stop form submit
         console.log("form submit");
+
+
+        if (this.state.categories.size === 0
+            || this.state.file4K == null
+            || this.state.fileHD == null
+            || this.state.fileThumbnail == null
+            || this.state.password == "") {
+            console.error(Error('Provide all the information'));
+            this.setState({ statusCode: 404, submitting: false }, () => {
+                console.log(
+                    "Provide all the information",
+                    this.state.statusCode
+                );
+            });
+            console.log("form submit canceled");
+            return;
+        }
+
         this.fileUploadFetch(this.state.file4K,
             this.state.fileHD,
             this.state.fileThumbnail,
@@ -66,8 +84,8 @@ export default class SemanticFileUpload extends Component {
             this.state.source,
             this.state.categories);
 
-        this.setState({submitting: true})
-        window.scrollTo(0,0);
+        this.setState({ submitting: true })
+        window.scrollTo(0, 0);
     };
 
     fileChange4K = e => {
@@ -160,13 +178,25 @@ export default class SemanticFileUpload extends Component {
                     console.log(response);
                     console.log(response.status);
                     //this.setState({ categories: []});//Clear state
-                    this.setState({ statusCode: response.status }, () => {
+                    this.setState({ statusCode: response.status, submitting: false  }, () => {
                         console.log(
                             "This is the response status code --->",
                             this.state.statusCode
                         );
                     });
-                    this.setState({submitting: false})
+                    if (response.status === 200) {
+                        this.setState(
+                            {
+                                submitting: false,
+                                file4K: null,
+                                fileHD: null,
+                                fileThumbnail: null,
+                                fileName4K: "",
+                                fileNameHD: "",
+                                fileNameThumbnail: "",
+                            });
+                    }
+
                     return response.text()
                 })
                 .then(result => console.log(result))
@@ -335,10 +365,6 @@ export default class SemanticFileUpload extends Component {
                                     );
                                 })}
 
-
-
-
-
                                 <Button style={{ marginTop: "20px" }} type="submit">
                                     Upload
                                 </Button>
@@ -370,6 +396,16 @@ export default class SemanticFileUpload extends Component {
                                         progress
                                     >
                                         Wrong password
+                                    </Progress>
+                                ) : statusCode && statusCode === 404 ? (
+                                    <Progress
+                                        style={{ marginTop: "20px" }}
+                                        percent={0}
+                                        error
+                                        active
+                                        progress
+                                    >
+                                        Provide all the information
                                     </Progress>
                                 ) : null}
                             </Form.Field>
