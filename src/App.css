@@ -39,7 +39,7 @@
 
 
 .Testo {
-  max-width: 100vh;
+  max-width: 200vh;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -60,7 +60,7 @@ export default class SemanticFileUpload extends Component {
         console.log("form submit");
 
 
-        if (this.state.categories.size === 0
+        if (this.state.categories.length === 0
             || this.state.file4K == null
             || this.state.fileHD == null
             || this.state.fileThumbnail == null
@@ -73,6 +73,7 @@ export default class SemanticFileUpload extends Component {
                 );
             });
             console.log("form submit canceled");
+            window.scrollTo(0, 0);
             return;
         }
 
@@ -178,7 +179,7 @@ export default class SemanticFileUpload extends Component {
                     console.log(response);
                     console.log(response.status);
                     //this.setState({ categories: []});//Clear state
-                    this.setState({ statusCode: response.status, submitting: false  }, () => {
+                    this.setState({ statusCode: response.status, submitting: false }, () => {
                         console.log(
                             "This is the response status code --->",
                             this.state.statusCode
@@ -272,150 +273,158 @@ export default class SemanticFileUpload extends Component {
                 menuItem: "Import ",
                 render: () => (
                     <Tab.Pane attached={false} className="Testo" loading={this.state.submitting}>
+
+
+                        {statusCode && statusCode === 200 ? (
+                            <Progress
+                                style={{ marginTop: "20px" }}
+                                percent={100}
+                                success
+                                progress
+                            >
+                                File Upload Success
+                                    </Progress>
+                        ) : statusCode && statusCode === 500 ? (
+                            <Progress
+                                style={{ marginTop: "20px" }}
+                                percent={0}
+                                error
+                                active
+                                progress
+                            >
+                                File Upload Failed
+                                    </Progress>
+                        ) : statusCode && statusCode === 401 ? (
+                            <Progress
+                                style={{ marginTop: "20px" }}
+                                percent={0}
+                                error
+                                active
+                                progress
+                            >
+                                File Upload Failed: Wrong password
+                                    </Progress>
+                        ) : statusCode && statusCode === 404 ? (
+                            <Progress
+                                style={{ marginTop: "20px" }}
+                                percent={0}
+                                error
+                                active
+                                progress
+                            >
+                                Provide all the information
+                                    </Progress>
+                        ) : null}
+
+
                         <Message>Provide all the information below</Message>
                         <Form onSubmit={this.onFormSubmit}>
-                            <Form.Field>
+                            <Form.Group widths='equal'>
+                                <Form.Field>
 
-                                <Form.Checkbox
-                                    label='Premium wallpaper'
-                                    checked={this.state.isPremium}
-                                    fluid
-                                    value={this.state.isPremium}
-                                    onChange={this.onPremiumChange}
-                                />
+                                    <Form.Checkbox
+                                        label='Premium wallpaper'
+                                        checked={this.state.isPremium}
+                                        fluid
+                                        value={this.state.isPremium}
+                                        onChange={this.onPremiumChange}
+                                    />
 
-                                <Form.Input
-                                    fluid
-                                    placeholder="Password"
-                                    value={this.state.password}
-                                    onChange={this.onPasswordChange}
-                                />
-
-
-
-                                <Form.Input
-                                    fluid
-                                    placeholder="Source"
-                                    value={this.state.source}
-                                    onChange={this.onSourceChange}
-                                />
-
-                                <Button as="label" htmlFor="file4K" type="button" animated="fade">
-                                    <Button.Content visible>
-                                    </Button.Content>
-                                    <Button.Content >Choose 4K Wallpaper</Button.Content>
-                                </Button>
-                                <input
-                                    type="file"
-                                    id="file4K"
-                                    hidden
-                                    onChange={this.fileChange4K}
-                                />
-                                <Form.Input
-                                    fluid
-                                    placeholder="Use the above bar to browse your file system"
-                                    readOnly
-                                    value={this.state.fileName4K}
-                                />
+                                    <Form.Input
+                                        fluid
+                                        placeholder="Password"
+                                        value={this.state.password}
+                                        onChange={this.onPasswordChange}
+                                    />
 
 
-                                <Button as="label" htmlFor="fileHD" type="button" animated="fade">
-                                    <Button.Content >Choose HD Wallpaper</Button.Content>
-                                </Button>
-                                <input
-                                    type="file"
-                                    id="fileHD"
-                                    hidden
-                                    onChange={this.fileChangeHD}
-                                />
-                                <Form.Input
-                                    fluid
-                                    placeholder="Use the above bar to browse your file system"
-                                    readOnly
-                                    value={this.state.fileNameHD}
-                                />
 
-                                <Button as="label" htmlFor="fileThumbnail" type="button" animated="fade">
-                                    <Button.Content >Choose Thumbnail Wallpaper</Button.Content>
-                                </Button>
-                                <input
-                                    type="file"
-                                    id="fileThumbnail"
-                                    hidden
-                                    onChange={this.fileChangeThumbnail}
-                                />
-                                <Form.Input
-                                    fluid
-                                    placeholder="Use the above bar to browse your file system"
-                                    readOnly
-                                    value={this.state.fileNameThumbnail}
-                                />
+                                    <Form.Input
+                                        fluid
+                                        placeholder="Source"
+                                        value={this.state.source}
+                                        onChange={this.onSourceChange}
+                                    />
+
+                                    <Button as="label" htmlFor="file4K" type="button" animated="fade">
+                                        <Button.Content visible>
+                                        </Button.Content>
+                                        <Button.Content >Choose 4K Wallpaper</Button.Content>
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        id="file4K"
+                                        hidden
+                                        onChange={this.fileChange4K}
+                                    />
+                                    <Form.Input
+                                        fluid
+                                        placeholder="file4K"
+                                        readOnly
+                                        value={this.state.fileName4K}
+                                    />
 
 
-                                <Message>Select Image categories</Message>
-                                {this.state.categoryDownloaded && receivedCategories.map((cat, i) => {
-                                    return (
-                                        <Form.Checkbox
-                                            id={cat.id + ''}
-                                            label={cat.id + '-' + cat.categoryName}
-                                            onChange={(e, v) => this.handleCategoryClick(e, v, i)}
-                                            name={cat.categoryName}
-                                            defaultChecked={false}
-                                        />
-                                    );
-                                })}
+                                    <Button as="label" htmlFor="fileHD" type="button" animated="fade">
+                                        <Button.Content >Choose HD Wallpaper</Button.Content>
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        id="fileHD"
+                                        hidden
+                                        onChange={this.fileChangeHD}
+                                    />
+                                    <Form.Input
+                                        fluid
+                                        placeholder="fileHD"
+                                        readOnly
+                                        value={this.state.fileNameHD}
+                                    />
 
-                                <Button style={{ marginTop: "20px" }} type="submit">
-                                    Upload
-                                </Button>
-                                {statusCode && statusCode === 200 ? (
-                                    <Progress
-                                        style={{ marginTop: "20px" }}
-                                        percent={100}
-                                        success
-                                        progress
-                                    >
-                                        File Upload Success
-                                    </Progress>
-                                ) : statusCode && statusCode === 500 ? (
-                                    <Progress
-                                        style={{ marginTop: "20px" }}
-                                        percent={0}
-                                        error
-                                        active
-                                        progress
-                                    >
-                                        File Upload Failed
-                                    </Progress>
-                                ) : statusCode && statusCode === 401 ? (
-                                    <Progress
-                                        style={{ marginTop: "20px" }}
-                                        percent={0}
-                                        error
-                                        active
-                                        progress
-                                    >
-                                        Wrong password
-                                    </Progress>
-                                ) : statusCode && statusCode === 404 ? (
-                                    <Progress
-                                        style={{ marginTop: "20px" }}
-                                        percent={0}
-                                        error
-                                        active
-                                        progress
-                                    >
-                                        Provide all the information
-                                    </Progress>
-                                ) : null}
-                            </Form.Field>
+                                    <Button as="label" htmlFor="fileThumbnail" type="button" animated="fade">
+                                        <Button.Content >Choose Thumbnail Wallpaper</Button.Content>
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        id="fileThumbnail"
+                                        hidden
+                                        onChange={this.fileChangeThumbnail}
+                                    />
+                                    <Form.Input
+                                        fluid
+                                        placeholder="fileThumbnail"
+                                        readOnly
+                                        value={this.state.fileNameThumbnail}
+                                    />
+
+
+
+
+                                    <Button style={{ marginTop: "20px" }} type="submit">
+                                        Upload
+                                    </Button>
+                                </Form.Field>
+                                <Form.Field>
+                                    {this.state.categoryDownloaded && receivedCategories.map((cat, i) => {
+                                        return (
+                                            <Form.Checkbox
+                                                id={cat.id + ''}
+                                                label={cat.id + '-' + cat.categoryName}
+                                                onChange={(e, v) => this.handleCategoryClick(e, v, i)}
+                                                name={cat.categoryName}
+                                                defaultChecked={false}
+                                            />
+                                        );
+                                    })}
+                                </Form.Field>
+                            </Form.Group>
                         </Form>
                     </Tab.Pane>
                 )
             }
         ];
         return (
-            <Segment style={{ padding: "2em 1em" }} vertical>
+            <Segment style={{ padding: "1em 1em" }} vertical>
                 <Divider horizontal>REAL 4K WALLPAPERS FILE UPLOAD SERVICE</Divider>
                 <Tab menu={{ pointing: true }} panes={panes} />
             </Segment>
