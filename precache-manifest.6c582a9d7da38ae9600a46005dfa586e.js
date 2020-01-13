@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ccccd02aa181a5a61a22778388729cdb",
+    "revision": "a28089927a85bff32e1be0983cc2a59f",
     "url": "/real-4k-wallpapers-ui/index.html"
   },
   {
-    "revision": "cc33afa45b9d3e0ef1fb",
+    "revision": "6709f6f3ed3d9aacc29f",
     "url": "/real-4k-wallpapers-ui/static/css/main.edaff117.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/real-4k-wallpapers-ui/static/js/2.f3d81f2e.chunk.js.LICENSE"
   },
   {
-    "revision": "cc33afa45b9d3e0ef1fb",
-    "url": "/real-4k-wallpapers-ui/static/js/main.a39ca016.chunk.js"
+    "revision": "6709f6f3ed3d9aacc29f",
+    "url": "/real-4k-wallpapers-ui/static/js/main.dffedeb6.chunk.js"
   },
   {
     "revision": "fef25f6c8ec615ac83f4",
