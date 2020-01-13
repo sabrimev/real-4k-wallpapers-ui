@@ -412,7 +412,7 @@ export default class SemanticFileUpload extends Component {
                                         return (
                                             <Form.Checkbox
                                                 id={cat.id + ''}
-                                                label={cat.id + '-' + cat.categoryName}
+                                                label={cat.categoryName}
                                                 onChange={(e, v) => this.handleCategoryClick(e, v, i)}
                                                 name={cat.categoryName}
                                                 defaultChecked={false}
