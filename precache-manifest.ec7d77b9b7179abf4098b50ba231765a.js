@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a28089927a85bff32e1be0983cc2a59f",
+    "revision": "992a6b2e896ff3bbc960ecb82c92c984",
     "url": "/real-4k-wallpapers-ui/index.html"
   },
   {
-    "revision": "6709f6f3ed3d9aacc29f",
+    "revision": "ae4c04caf66c09fa2eb9",
     "url": "/real-4k-wallpapers-ui/static/css/main.edaff117.chunk.css"
   },
   {
-    "revision": "8c21578f6c148c0f1e38",
-    "url": "/real-4k-wallpapers-ui/static/js/2.f3d81f2e.chunk.js"
+    "revision": "f7bde08e7586b48100df",
+    "url": "/real-4k-wallpapers-ui/static/js/2.a857e2ef.chunk.js"
   },
   {
     "revision": "3d9880ee0da2a100dc4a6223e0aed39a",
-    "url": "/real-4k-wallpapers-ui/static/js/2.f3d81f2e.chunk.js.LICENSE"
+    "url": "/real-4k-wallpapers-ui/static/js/2.a857e2ef.chunk.js.LICENSE"
   },
   {
-    "revision": "6709f6f3ed3d9aacc29f",
-    "url": "/real-4k-wallpapers-ui/static/js/main.dffedeb6.chunk.js"
+    "revision": "ae4c04caf66c09fa2eb9",
+    "url": "/real-4k-wallpapers-ui/static/js/main.d2c1d01d.chunk.js"
   },
   {
     "revision": "fef25f6c8ec615ac83f4",
