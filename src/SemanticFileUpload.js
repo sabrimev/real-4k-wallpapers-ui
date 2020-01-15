@@ -19,6 +19,8 @@ import {
     Image
 } from "semantic-ui-react";
 
+import { _ } from "underscore";
+
 import addYears from "date-fns/add_years";
 import format from "date-fns/format";
 
@@ -140,12 +142,16 @@ export default class SemanticFileUpload extends Component {
             .then(response => response.text())
             .then(result => {
                 console.log(result)
-                this.setState({ category: result, categoryDownloaded: true })
-                receivedCategories = JSON.parse(result)
+                
+                this.setState({categoryDownloaded: true })
+                var sortedCategoryList = JSON.parse(result)
+                receivedCategories = _.sortBy( sortedCategoryList, 'categoryName' );
+
                 this.setState(this.state)
             })
             .catch(error => console.log('error', error));
     }
+
 
     fileUploadFetch = async (file4k,
         fileHD,
