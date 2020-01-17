@@ -193,7 +193,8 @@ export default class SemanticFileUpload extends Component {
                             this.state.statusCode
                         );
                     });
-                    if (response.status === 200) {
+                    if (response.status === 200) 
+                    {
                         this.setState(
                             {
                                 submitting: false,
@@ -203,6 +204,7 @@ export default class SemanticFileUpload extends Component {
                                 fileName4K: "",
                                 fileNameHD: "",
                                 fileNameThumbnail: "",
+                                categories: []
                             });
                     }
 
@@ -422,6 +424,7 @@ export default class SemanticFileUpload extends Component {
                                                 onChange={(e, v) => this.handleCategoryClick(e, v, i)}
                                                 name={cat.categoryName}
                                                 defaultChecked={false}
+                                                checked={this.state.categories.length === 0 ? false : null}
                                             />
                                         );
                                     })}
