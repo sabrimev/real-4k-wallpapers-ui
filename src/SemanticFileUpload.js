@@ -50,8 +50,10 @@ export default class SemanticFileUpload extends Component {
             fileNameHD: "",
             fileNameThumbnail: "",
             isPremium: false,
+            isActive: false,
             password: '',
             source: '',
+            searchKeys: '',
             isUploading: false,
             statusCode: "",
             submitting: false
@@ -85,8 +87,10 @@ export default class SemanticFileUpload extends Component {
             this.state.fileHD,
             this.state.fileThumbnail,
             this.state.isPremium,
+            this.state.isActive,
             this.state.password,
             this.state.source,
+            this.state.searchKeys,
             this.state.categories);
 
         this.setState({ submitting: true })
@@ -138,7 +142,7 @@ export default class SemanticFileUpload extends Component {
             redirect: 'follow'
         };
 
-        fetch("https://wallpaper.westeurope.cloudapp.azure.com/wallpaper/getAllCategory", requestOptions)
+        fetch("https://real4k.westeurope.cloudapp.azure.com/wallpaper/getAllCategory", requestOptions)
             .then(response => response.text())
             .then(result => {
                 console.log(result)
@@ -157,8 +161,10 @@ export default class SemanticFileUpload extends Component {
         fileHD,
         fileThumbnail,
         isPremium,
+        isActive,
         password,
         source,
+        searchKeys,
         categories) => {
         const formData = new FormData();
         formData.append('Image4k', file4k);
@@ -167,7 +173,9 @@ export default class SemanticFileUpload extends Component {
 
         formData.append('Password', password);
         formData.append('IsPremium', isPremium);
+        formData.append('IsActive', isActive);
         formData.append('Source', source);
+        formData.append('SearchKeys', searchKeys);
 
         categories.map(cat => formData.append('Categories', cat))
 
@@ -182,7 +190,7 @@ export default class SemanticFileUpload extends Component {
                 body: formData
             };
 
-            fetch("https://wallpaper.westeurope.cloudapp.azure.com/wallpaper/UploadImage", requestOptions)
+            fetch("https://real4k.westeurope.cloudapp.azure.com/wallpaper/UploadImage", requestOptions)
                 .then(response => {
                     console.log(response);
                     console.log(response.status);
@@ -198,12 +206,14 @@ export default class SemanticFileUpload extends Component {
                         this.setState(
                             {
                                 submitting: false,
+                                isPremium: false,
                                 file4K: null,
                                 fileHD: null,
                                 fileThumbnail: null,
                                 fileName4K: "",
                                 fileNameHD: "",
                                 fileNameThumbnail: "",
+                                searchKeys: "",
                                 categories: []
                             });
                     }
@@ -249,10 +259,26 @@ export default class SemanticFileUpload extends Component {
         console.log(this.state.source)
     }
 
+    onSearchKeysChange = e => {
+        console.log('onSearchKeysChange')
+        this.setState({
+            searchKeys: e.target.value
+        })
+
+        console.log(this.state.searchKeys)
+    }
+
     onPremiumChange = e => {
         console.log('onPremiumChange : ' + !this.state.isPremium)
         this.setState({
             isPremium: !this.state.isPremium
+        })
+    }
+
+    onActiveChange = e => {
+        console.log('onActiveChange : ' + !this.state.isActive)
+        this.setState({
+            isActive: !this.state.isActive
         })
     }
 
@@ -280,7 +306,7 @@ export default class SemanticFileUpload extends Component {
         const { statusCode } = this.state;
         const panes = [
             {
-                menuItem: "Import ",
+                menuItem: "Upload Walpaper",
                 render: () => (
                     <Tab.Pane attached={false} className="Testo" loading={this.state.submitting}>
 
@@ -340,6 +366,18 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onPremiumChange}
                                     />
 
+                                    <br/>
+
+                                    <Form.Checkbox
+                                        label='Activate'
+                                        checked={this.state.isActive}
+                                        fluid
+                                        value={this.state.isActive}
+                                        onChange={this.onActiveChange}
+                                    />
+
+                                    <br/>
+
                                     <Form.Input
                                         fluid
                                         placeholder="Password"
@@ -347,7 +385,7 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onPasswordChange}
                                     />
 
-
+                                    <br/>
 
                                     <Form.Input
                                         fluid
@@ -355,6 +393,17 @@ export default class SemanticFileUpload extends Component {
                                         value={this.state.source}
                                         onChange={this.onSourceChange}
                                     />
+
+                                    <br/>
+
+                                    <Form.Input
+                                        fluid
+                                        placeholder="Search Keys - Max 500 word"
+                                        value={this.state.searchKeys}
+                                        onChange={this.onSearchKeysChange}
+                                    />
+
+                                    <br/>
 
                                     <Button as="label" htmlFor="file4K" type="button" animated="fade">
                                         <Button.Content visible>
@@ -374,6 +423,7 @@ export default class SemanticFileUpload extends Component {
                                         value={this.state.fileName4K}
                                     />
 
+                                    <br/>
 
                                     <Button as="label" htmlFor="fileHD" type="button" animated="fade">
                                         <Button.Content >Choose HD Wallpaper</Button.Content>
@@ -390,6 +440,8 @@ export default class SemanticFileUpload extends Component {
                                         readOnly
                                         value={this.state.fileNameHD}
                                     />
+
+                                    <br/>
 
                                     <Button as="label" htmlFor="fileThumbnail" type="button" animated="fade">
                                         <Button.Content >Choose Thumbnail Wallpaper</Button.Content>
