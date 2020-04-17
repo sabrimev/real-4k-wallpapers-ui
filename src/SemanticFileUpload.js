@@ -56,7 +56,10 @@ export default class SemanticFileUpload extends Component {
             searchKeys: '',
             isUploading: false,
             statusCode: "",
-            submitting: false
+            submitting: false,
+            color4K: '',
+            colorHD: '',
+            colorThumbnail: '',
         };
         this.getCategoryFetch();// get categories
     }
@@ -98,6 +101,11 @@ export default class SemanticFileUpload extends Component {
     };
 
     fileChange4K = e => {
+        if(e.target.files[0].name.toLowerCase().includes('4k')){
+            this.setState({ color4K: 'green'})
+        } else {
+            this.setState({ color4K: 'red'})
+        }
         this.setState(
             { file4K: e.target.files[0], fileName4K: e.target.files[0].name },
             () => {
@@ -111,6 +119,11 @@ export default class SemanticFileUpload extends Component {
     };
 
     fileChangeHD = e => {
+        if(e.target.files[0].name.toLowerCase().includes('hd')){
+            this.setState({ colorHD: 'green'})
+        } else {
+            this.setState({ colorHD: 'red'})
+        }
         this.setState(
             { fileHD: e.target.files[0], fileNameHD: e.target.files[0].name },
             () => {
@@ -124,6 +137,11 @@ export default class SemanticFileUpload extends Component {
     };
 
     fileChangeThumbnail = e => {
+        if(e.target.files[0].name.toLowerCase().includes('thumbnail')){
+            this.setState({ colorThumbnail: 'green'})
+        } else {
+            this.setState({ colorThumbnail: 'red'})
+        }
         this.setState(
             { imagePreview: URL.createObjectURL(e.target.files[0]), fileThumbnail: e.target.files[0], fileNameThumbnail: e.target.files[0].name },
             () => {
@@ -405,7 +423,7 @@ export default class SemanticFileUpload extends Component {
                                     <br />
 
                                     <Form.Group widths='equal'>
-                                        <Button fluid as="label" htmlFor="file4K" type="button" animated="fade">
+                                        <Button color={this.state.color4K} fluid as="label" htmlFor="file4K" type="button" animated="fade">
                                             <Button.Content visible>
                                             </Button.Content>
                                             <Button.Content >Choose 4K Wallpaper</Button.Content>
@@ -426,7 +444,7 @@ export default class SemanticFileUpload extends Component {
 
 
                                     <Form.Group widths='equal'>
-                                        <Button fluid as="label" htmlFor="fileHD" type="button" animated="fade">
+                                        <Button color={this.state.colorHD} fluid as="label" htmlFor="fileHD" type="button" animated="fade">
                                             <Button.Content >Choose HD Wallpaper</Button.Content>
                                         </Button>
                                         <input
@@ -445,7 +463,7 @@ export default class SemanticFileUpload extends Component {
 
 
                                     <Form.Group widths='equal'>
-                                        <Button fluid as="label" htmlFor="fileThumbnail" type="button" animated="fade">
+                                        <Button color={this.state.colorThumbnail} fluid as="label" htmlFor="fileThumbnail" type="button" animated="fade">
                                             <Button.Content >Choose Thumbnail Wallpaper</Button.Content>
                                         </Button>
                                         <input
