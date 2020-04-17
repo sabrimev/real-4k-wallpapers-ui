@@ -125,7 +125,7 @@ export default class SemanticFileUpload extends Component {
 
     fileChangeThumbnail = e => {
         this.setState(
-            { imagePreview: URL.createObjectURL(e.target.files[0]),  fileThumbnail: e.target.files[0], fileNameThumbnail: e.target.files[0].name },
+            { imagePreview: URL.createObjectURL(e.target.files[0]), fileThumbnail: e.target.files[0], fileNameThumbnail: e.target.files[0].name },
             () => {
                 console.log(
                     "File chosen --->",
@@ -146,10 +146,10 @@ export default class SemanticFileUpload extends Component {
             .then(response => response.text())
             .then(result => {
                 console.log(result)
-                
-                this.setState({categoryDownloaded: true })
+
+                this.setState({ categoryDownloaded: true })
                 var sortedCategoryList = JSON.parse(result)
-                receivedCategories = _.sortBy( sortedCategoryList, 'categoryName' );
+                receivedCategories = _.sortBy(sortedCategoryList, 'categoryName');
 
                 this.setState(this.state)
             })
@@ -201,8 +201,7 @@ export default class SemanticFileUpload extends Component {
                             this.state.statusCode
                         );
                     });
-                    if (response.status === 200) 
-                    {
+                    if (response.status === 200) {
                         this.setState(
                             {
                                 submitting: false,
@@ -319,7 +318,7 @@ export default class SemanticFileUpload extends Component {
                                 progress
                             >
                                 File Upload Success
-                                    </Progress>
+                            </Progress>
                         ) : statusCode && statusCode === 500 ? (
                             <Progress
                                 style={{ marginTop: "20px" }}
@@ -329,7 +328,7 @@ export default class SemanticFileUpload extends Component {
                                 progress
                             >
                                 File Upload Failed
-                                    </Progress>
+                            </Progress>
                         ) : statusCode && statusCode === 401 ? (
                             <Progress
                                 style={{ marginTop: "20px" }}
@@ -339,7 +338,7 @@ export default class SemanticFileUpload extends Component {
                                 progress
                             >
                                 File Upload Failed: Wrong password
-                                    </Progress>
+                            </Progress>
                         ) : statusCode && statusCode === 404 ? (
                             <Progress
                                 style={{ marginTop: "20px" }}
@@ -349,7 +348,7 @@ export default class SemanticFileUpload extends Component {
                                 progress
                             >
                                 Provide all the information
-                                    </Progress>
+                            </Progress>
                         ) : null}
 
 
@@ -366,7 +365,7 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onPremiumChange}
                                     />
 
-                                    <br/>
+                                    <br />
 
                                     <Form.Checkbox
                                         label='Activate'
@@ -376,7 +375,7 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onActiveChange}
                                     />
 
-                                    <br/>
+                                    <br />
 
                                     <Form.Input
                                         fluid
@@ -385,7 +384,7 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onPasswordChange}
                                     />
 
-                                    <br/>
+                                    <br />
 
                                     <Form.Input
                                         fluid
@@ -394,7 +393,7 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onSourceChange}
                                     />
 
-                                    <br/>
+                                    <br />
 
                                     <Form.Input
                                         fluid
@@ -403,65 +402,69 @@ export default class SemanticFileUpload extends Component {
                                         onChange={this.onSearchKeysChange}
                                     />
 
-                                    <br/>
+                                    <br />
 
-                                    <Button as="label" htmlFor="file4K" type="button" animated="fade">
-                                        <Button.Content visible>
-                                        </Button.Content>
-                                        <Button.Content >Choose 4K Wallpaper</Button.Content>
-                                    </Button>
-                                    <input
-                                        type="file"
-                                        id="file4K"
-                                        hidden
-                                        onChange={this.fileChange4K}
-                                    />
-                                    <Form.Input
-                                        fluid
-                                        placeholder="file4K"
-                                        readOnly
-                                        value={this.state.fileName4K}
-                                    />
+                                    <Form.Group widths='equal'>
+                                        <Button fluid as="label" htmlFor="file4K" type="button" animated="fade">
+                                            <Button.Content visible>
+                                            </Button.Content>
+                                            <Button.Content >Choose 4K Wallpaper</Button.Content>
+                                        </Button>
+                                        <input
+                                            type="file"
+                                            id="file4K"
+                                            hidden
+                                            onChange={this.fileChange4K}
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            placeholder="file4K"
+                                            readOnly
+                                            value={this.state.fileName4K}
+                                        />
+                                    </Form.Group>
 
-                                    <br/>
 
-                                    <Button as="label" htmlFor="fileHD" type="button" animated="fade">
-                                        <Button.Content >Choose HD Wallpaper</Button.Content>
-                                    </Button>
-                                    <input
-                                        type="file"
-                                        id="fileHD"
-                                        hidden
-                                        onChange={this.fileChangeHD}
-                                    />
-                                    <Form.Input
-                                        fluid
-                                        placeholder="fileHD"
-                                        readOnly
-                                        value={this.state.fileNameHD}
-                                    />
+                                    <Form.Group widths='equal'>
+                                        <Button fluid as="label" htmlFor="fileHD" type="button" animated="fade">
+                                            <Button.Content >Choose HD Wallpaper</Button.Content>
+                                        </Button>
+                                        <input
+                                            type="file"
+                                            id="fileHD"
+                                            hidden
+                                            onChange={this.fileChangeHD}
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            placeholder="fileHD"
+                                            readOnly
+                                            value={this.state.fileNameHD}
+                                        />
+                                    </Form.Group>
 
-                                    <br/>
 
-                                    <Button as="label" htmlFor="fileThumbnail" type="button" animated="fade">
-                                        <Button.Content >Choose Thumbnail Wallpaper</Button.Content>
-                                    </Button>
-                                    <input
-                                        type="file"
-                                        id="fileThumbnail"
-                                        hidden
-                                        onChange={this.fileChangeThumbnail}
-                                    />
-                                    
-                                    <Form.Input
-                                        fluid
-                                        placeholder="fileThumbnail"
-                                        readOnly
-                                        value={this.state.fileNameThumbnail}
-                                    />
+                                    <Form.Group widths='equal'>
+                                        <Button fluid as="label" htmlFor="fileThumbnail" type="button" animated="fade">
+                                            <Button.Content >Choose Thumbnail Wallpaper</Button.Content>
+                                        </Button>
+                                        <input
+                                            type="file"
+                                            id="fileThumbnail"
+                                            hidden
+                                            onChange={this.fileChangeThumbnail}
+                                        />
+
+                                        <Form.Input
+                                            fluid
+                                            placeholder="fileThumbnail"
+                                            readOnly
+                                            value={this.state.fileNameThumbnail}
+                                        />
+
+                                    </Form.Group>
 
                                     <Image src={this.state.imagePreview} size='small' />
-
 
                                     <Button style={{ marginTop: "20px" }} type="submit">
                                         Upload
