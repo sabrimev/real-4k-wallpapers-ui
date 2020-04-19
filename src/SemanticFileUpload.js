@@ -101,10 +101,10 @@ export default class SemanticFileUpload extends Component {
     };
 
     fileChange4K = e => {
-        if(e.target.files[0].name.toLowerCase().includes('4k')){
-            this.setState({ color4K: 'green'})
+        if (e.target.files[0].name.toLowerCase().includes('4k')) {
+            this.setState({ color4K: 'green' })
         } else {
-            this.setState({ color4K: 'red'})
+            this.setState({ color4K: 'red' })
         }
         this.setState(
             { file4K: e.target.files[0], fileName4K: e.target.files[0].name },
@@ -119,10 +119,10 @@ export default class SemanticFileUpload extends Component {
     };
 
     fileChangeHD = e => {
-        if(e.target.files[0].name.toLowerCase().includes('hd')){
-            this.setState({ colorHD: 'green'})
+        if (e.target.files[0].name.toLowerCase().includes('hd')) {
+            this.setState({ colorHD: 'green' })
         } else {
-            this.setState({ colorHD: 'red'})
+            this.setState({ colorHD: 'red' })
         }
         this.setState(
             { fileHD: e.target.files[0], fileNameHD: e.target.files[0].name },
@@ -137,10 +137,10 @@ export default class SemanticFileUpload extends Component {
     };
 
     fileChangeThumbnail = e => {
-        if(e.target.files[0].name.toLowerCase().includes('thumbnail')){
-            this.setState({ colorThumbnail: 'green'})
+        if (e.target.files[0].name.toLowerCase().includes('thumbnail')) {
+            this.setState({ colorThumbnail: 'green' })
         } else {
-            this.setState({ colorThumbnail: 'red'})
+            this.setState({ colorThumbnail: 'red' })
         }
         this.setState(
             { imagePreview: URL.createObjectURL(e.target.files[0]), fileThumbnail: e.target.files[0], fileNameThumbnail: e.target.files[0].name },
@@ -373,7 +373,7 @@ export default class SemanticFileUpload extends Component {
                         <Message>Provide all the information below</Message>
                         <Form onSubmit={this.onFormSubmit}>
                             <Form.Group widths='equal'>
-                                <Form.Field>
+                                <Form.Field width={6}>
 
                                     <Form.Checkbox
                                         label='Premium wallpaper'
@@ -482,26 +482,46 @@ export default class SemanticFileUpload extends Component {
 
                                     </Form.Group>
 
-                                    <Image src={this.state.imagePreview} size='small' />
-
                                     <Button style={{ marginTop: "20px" }} type="submit">
                                         Upload
                                     </Button>
                                 </Form.Field>
-                                <Form.Field>
+                                <Form.Field width={2}>
                                     {this.state.categoryDownloaded && receivedCategories.map((cat, i) => {
-                                        return (
-                                            <Form.Checkbox
-                                                id={cat.id + ''}
-                                                label={cat.categoryName}
-                                                onChange={(e, v) => this.handleCategoryClick(e, v, i)}
-                                                name={cat.categoryName}
-                                                defaultChecked={false}
-                                                checked={this.state.categories.length === 0 ? false : null}
-                                            />
-                                        );
+                                        if (i <= 21)
+                                            return (
+                                                <Form.Checkbox
+                                                    id={cat.id + ''}
+                                                    label={cat.categoryName}
+                                                    onChange={(e, v) => this.handleCategoryClick(e, v, i)}
+                                                    name={cat.categoryName}
+                                                    defaultChecked={false}
+                                                    checked={this.state.categories.length === 0 ? false : null}
+                                                />
+                                            );
+                                        return <div></div>
                                     })}
                                 </Form.Field>
+                                <Form.Field width={2}>
+                                    {this.state.categoryDownloaded && receivedCategories.map((cat, i) => {
+                                        if (i > 21)
+                                            return (
+                                                <Form.Checkbox
+                                                    id={cat.id + ''}
+                                                    label={cat.categoryName}
+                                                    onChange={(e, v) => this.handleCategoryClick(e, v, i)}
+                                                    name={cat.categoryName}
+                                                    defaultChecked={false}
+                                                    checked={this.state.categories.length === 0 ? false : null}
+                                                />
+                                            );
+                                        return <div></div>
+                                    })}
+                                </Form.Field>
+                                <Form.Field width={4}>
+                                    <Image src={this.state.imagePreview} size='small' />
+                                </Form.Field>
+
                             </Form.Group>
                         </Form>
                     </Tab.Pane>
