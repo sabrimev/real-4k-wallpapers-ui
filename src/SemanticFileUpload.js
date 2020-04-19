@@ -519,7 +519,7 @@ export default class SemanticFileUpload extends Component {
                                     })}
                                 </Form.Field>
                                 <Form.Field width={4}>
-                                    <Image src={this.state.imagePreview} size='small' />
+                                    <Image src={this.state.imagePreview} size='medium' />
                                 </Form.Field>
 
                             </Form.Group>
