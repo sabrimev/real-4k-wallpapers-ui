@@ -19,17 +19,13 @@ import {
     Image
 } from "semantic-ui-react";
 
-import { _ } from "underscore";
+import * as _ from 'underscore'
 
 import addYears from "date-fns/add_years";
 import format from "date-fns/format";
 
 import "./App.css";
-import axios from "axios";
-const MockAdapter = require("axios-mock-adapter");
-const mock = new MockAdapter(axios);
-
-mock.onPost("/file/upload/enpoint").reply(200);
+//import axios from "axios";
 
 let d = addYears(new Date("2015-01-01T00:00"), 1);
 let f = format(d, "YYYY-MM-DD");
