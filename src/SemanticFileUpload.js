@@ -33,6 +33,7 @@ mock.onPost("/file/upload/enpoint").reply(200);
 
 let d = addYears(new Date("2015-01-01T00:00"), 1);
 let f = format(d, "YYYY-MM-DD");
+let baseUrl = "https://wallapi.westeurope.cloudapp.azure.com";
 
 var receivedCategories = [];
 
@@ -160,7 +161,7 @@ export default class SemanticFileUpload extends Component {
             redirect: 'follow'
         };
 
-        fetch("https://real4k.westeurope.cloudapp.azure.com/wallpaper/getAllCategory", requestOptions)
+        fetch(baseUrl + "/wallpaper/getAllCategory", requestOptions)
             .then(response => response.text())
             .then(result => {
                 console.log(result)
@@ -208,7 +209,7 @@ export default class SemanticFileUpload extends Component {
                 body: formData
             };
 
-            fetch("https://real4k.westeurope.cloudapp.azure.com/wallpaper/UploadImage", requestOptions)
+            fetch(baseUrl + "/wallpaper/UploadImage", requestOptions)
                 .then(response => {
                     console.log(response);
                     console.log(response.status);
